@@ -84,7 +84,7 @@ def events(request):
         newe.save()
         print("New event created") 
         for i in act_list:
-            newe.acts[i]['selected'] = 'True'
+            newe.acts[i]['selected'] = True
         newe.save()
         #
         return render(request,'adminpage.html')
@@ -124,6 +124,16 @@ def checkevent(request, pk):
     if request.method == "POST":
         data = request.POST
         action = data.get("warn")
+        observations = request.POST.getlist('message[]')
+        actslist = request.POST.getlist('acts[]')
+        print(observations,actslist)
+        for i,j in event.observation.items():
+            if i in actslist:
+                index = actslist.index(i)
+                event.observation[i] = observations[index]
+                print(event.observation[i])
+                event.save()
+
         '''
         if action == "yes":
             subject = 'WARNING : PENDING SUBMISSIONS'
