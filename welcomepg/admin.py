@@ -10,4 +10,5 @@ admin.site.register(Auditor)
 admin.site.register(Subcontractor)
 admin.site.register(Event)
 admin.site.register(Act)
+admin.site.register(UploadFile)
 

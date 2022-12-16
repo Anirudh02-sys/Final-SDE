@@ -12,5 +12,8 @@ urlpatterns = [
     path("logout",views.logoutpage, name='logout'),
     path('userlist',views.userlist,name='userlist'),
     #path('subcont',views.subcont,name='subcont'),
-    #path("",views.upload,name="upload")
+    path("upload",views.send_files,name="upload"),
+    path('aud',views.aud,name='aud'),
+    path('aevents/<int:pk>',views.checkevent,name='aevent'),
+    path('viewprofile',views.viewprofile,name='viewprofile'),
 ]

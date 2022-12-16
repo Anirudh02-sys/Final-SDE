@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'brivas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'updatedbrivas',
+        'NAME' : 'Anush',
         'USER' : 'postgres',
         'PASSWORD' : '1234',
         'HOST': 'localhost'
@@ -127,7 +127,20 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR/'media'
 #Default primary key field type
 #https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 #DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# changes made for LAB EXAM after this head to views.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 600
+EMAIL_HOST_USER = 'sampleanirudh@gmail.com' #sender's email-id
+#EMAIL_HOST_PASSWORD = 'dxpmthtlpdcbjvuo' #password associated with above email-id
+EMAIL_HOST_PASSWORD = 'qmbsiqdnzmyqmphb'

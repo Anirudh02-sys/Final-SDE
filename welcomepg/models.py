@@ -16,18 +16,17 @@ def create_json():
 
 class User(AbstractUser):        
     contact_number=models.BigIntegerField(null=True)
+    related = models.IntegerField(null=True)
     class Role(models.TextChoices):
         ADMIN = 'Admin'
         AUDITOR = 'Auditor'
         SUBCONTRACTOR = 'Subcontractor'
 
     base_role = Role.ADMIN
-    role = models.CharField(max_length=50,choices=Role.choices,null=True) 
+    role = models.CharField(max_length=50,choices=Role.choices,null=True,default=Role.ADMIN) 
 
     def save(self,*arg,**kwargs):
-        if not self.pk:
-            self.role = self.base_role
-            return super().save(*arg,**kwargs)
+        return super().save(*arg,**kwargs)
 
     def _str_(self):
         return f"{self.username}"
@@ -92,8 +91,18 @@ class Event(models.Model):
     audit = models.ForeignKey(to=Auditor,on_delete=models.CASCADE,null=True,related_name='auditor')
     sub = models.ForeignKey(to=Subcontractor,on_delete=models.CASCADE,null=True,related_name='subcontractor')
     #description = models.TextField(blank=True,null=True)
-    #event_date = models.DateTimeField('Event Date',max_length=30)
+    event_date = models.DateField('Event Date',max_length=30,null=True)
+    event_time = models.TimeField('Event Time',max_length=30,null=True)
     acts = models.JSONField(default=create_json)
-    
+
     def __str__(self):
         return f"{self.audit} - {self.sub}"
+
+class UploadFile(models.Model):
+    f_name = models.CharField(max_length=255)
+    #a_name = models.ForeignKey(to=Act,on_delete=models.CASCADE,null=True)
+    f_files = models.FileField(upload_to="")
+    e_id = models.ForeignKey(to=Event,on_delete=models.CASCADE,null=True)
+    observation = models.TextField(null=True)
+    def __str__(self):
+        return self.f_name
